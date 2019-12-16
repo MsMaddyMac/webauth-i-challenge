@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 
 const Users = require('../users/users-modal');
-const { validateLogin } = require('../validators/validators');
 
 router.post('/register', (req, res) => {
     let user = req.body;
