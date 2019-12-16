@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const Users = require('./users-modal');
 
-router.get('/', (req, res) => {
+router.get('/users', (req, res) => {
     Users.find()
         .then(users => {
             res.json(users);
@@ -11,5 +11,6 @@ router.get('/', (req, res) => {
             res.send(err);
         });
 });
+
 
 module.exports = router;

@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 
 const Users = require('../users/users-modal');
+const { validateLogin } = require('../validators/validators');
 
 router.post('/register', (req, res) => {
     let user = req.body;
@@ -30,14 +31,15 @@ router.post('/login', (req, res) => {
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
-                res.status(200).json({ message: `Welcome ${user.username}!` });
+                res.status(200).json({ message: `${user.username} is logged in!` });
             } else {
-                res.status(401).json({ message: 'Invalid credentials.' });
+                res.status(401).json({ message: 'You shall not pass!' });
             }
         })
         .catch(err => {
             res.status(500).json(err);
         });
 });
+
 
 module.exports = router;
