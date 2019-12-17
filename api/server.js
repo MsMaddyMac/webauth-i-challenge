@@ -10,7 +10,29 @@ const knex = require('../database/dbConfig');
 
 const server = express();
 
-const sessionConfig = {};
+const sessionConfig = {
+	// session storage options
+	name: 'whatchamacallit',
+	secret: 'pinky promise, please!',
+	resave: false,
+	saveUninitialized: true,
+
+	// how to store the session
+	store: new KnexSessionStore({
+		knex,
+		createtable: true,
+		tablename: 'sessions',
+		sidfieldname: 'sid',
+		clearInterval: 1000 * 60 * 10
+	}),
+
+	// cookie options
+	cookie: {
+		maxAge: 100 * 60 * 10,
+		secure: false,
+		httpOnly: true
+	}
+};
 
 server.use(helmet());
 server.use(express.json());
